@@ -28,7 +28,11 @@ if (
             $result = $_GET['number1'] ** $_GET['number2']; // Степень
             break;
         case '%':
-            $result = $_GET['number2'] * 100 / $_GET['number1']; // Пропорция
+            if ($_GET['number1'] != 0) {
+                $result = $_GET['number2'] * 100 / $_GET['number1']; // Пропорция
+            } else {
+                $result = 'Error: Division by zero';
+            }
             break;
     }
 }
@@ -74,7 +78,7 @@ if (
                     <?php if (isset($result)) : ?>
                         <div class="mb-3">
                             <label for="result" class="form-label">Result</label>
-                            <input type="number" class="form-control" id="result" readonly value="<?= $result ?>">
+                            <input type="text" class="form-control" id="result" readonly value="<?= $result ?>">
                         </div>
                     <?php endif; ?>
                 </form>
