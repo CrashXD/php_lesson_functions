@@ -1,41 +1,25 @@
 <?php
-// if (!isset($_GET['number1'])) {
-//     $_GET['number1'] = 0;
-// }
+// if (!isset($_GET['number1'])) $_GET['number1'] = 0;
+// if (!isset($_GET['number2'])) $_GET['number2'] = 0;
+
 if (
-    isset($_GET['number1']) && is_numeric($_GET['number1'])
-    && isset($_GET['number2']) && is_numeric($_GET['number2'])
-    && isset($_GET['operator'])
+    isset($_GET['number1']) &&
+    isset($_GET['number2']) &&
+    is_numeric($_GET['number1']) &&
+    is_numeric($_GET['number2'])
 ) {
-    switch ($_GET['operator']) {
-        case '+':
-            $result = $_GET['number1'] + $_GET['number2'];
-            break;
-        case '-':
-            $result = $_GET['number1'] - $_GET['number2'];
-            break;
-        case '*':
-            $result = $_GET['number1'] * $_GET['number2'];
-            break;
-        case '/':
-            if ($_GET['number2'] != 0) {
-                $result = $_GET['number1'] / $_GET['number2'];
-            } else {
-                $result = 'Error: Division by zero';
-            }
-            break;
-        case '**':
-            $result = $_GET['number1'] ** $_GET['number2']; // Степень
-            break;
-        case '%':
-            if ($_GET['number1'] != 0) {
-                $result = $_GET['number2'] * 100 / $_GET['number1']; // Пропорция
-            } else {
-                $result = 'Error: Division by zero';
-            }
-            break;
-    }
+    $result = $_GET['number1'] + $_GET['number2'];
 }
+
+// if (isset($_GET['number1'])) {
+//     if (isset($_GET['number2'])) {
+//         if (is_numeric($_GET['number1'])) {
+//             if (is_numeric($_GET['number2'])) {
+//                 $result = $_GET['number1'] + $_GET['number2'];
+//             }
+//         }
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,22 +38,23 @@ if (
             <div class="col-12">
                 <form action="">
                     <div class="mb-3">
-                        <label for="number1" class="form-label">Number1</label>
+                        <label for="number1" class="form-label">Number 1</label>
                         <input type="number" class="form-control" id="number1" name="number1" value="<?= $_GET['number1'] ?? '' ?>">
                     </div>
                     <div class="mb-3">
                         <label for="operator" class="form-label">Operator</label>
-                        <select class="form-select" id="operator" name="operator">
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '+' ? 'selected' : '' ?>>+</option>
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '-' ? 'selected' : '' ?>>-</option>
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '*' ? 'selected' : '' ?>>*</option>
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '/' ? 'selected' : '' ?>>/</option>
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '%' ? 'selected' : '' ?>>%</option>
-                            <option <?= isset($_GET['operator']) && $_GET['operator'] == '**' ? 'selected' : '' ?>>**</option>
+                        <!-- <input type="text" class="form-control" id="operator" name="operator"> -->
+                        <select class="form-select mb-3" id="operator" name="operator">
+                            <option selected>+</option>
+                            <option>-</option>
+                            <option>*</option>
+                            <option>/</option>
+                            <option value="%">Процент</option>
+                            <option value="**">Степень</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="number2" class="form-label">Number2</label>
+                        <label for="number2" class="form-label">Number 2</label>
                         <input type="number" class="form-control" id="number2" name="number2" value="<?= $_GET['number2'] ?? '' ?>">
                     </div>
                     <div class="mb-3">
@@ -78,7 +63,7 @@ if (
                     <?php if (isset($result)) : ?>
                         <div class="mb-3">
                             <label for="result" class="form-label">Result</label>
-                            <input type="text" class="form-control" id="result" readonly value="<?= $result ?>">
+                            <input type="number" class="form-control" id="result" readonly value="<?= $result ?>">
                         </div>
                     <?php endif; ?>
                 </form>
