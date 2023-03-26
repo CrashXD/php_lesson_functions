@@ -45,10 +45,10 @@ if (
                         <label for="operator" class="form-label">Operator</label>
                         <!-- <input type="text" class="form-control" id="operator" name="operator"> -->
                         <select class="form-select mb-3" id="operator" name="operator">
-                            <option selected>+</option>
-                            <option>-</option>
-                            <option>*</option>
-                            <option>/</option>
+                            <option <?= isset($_GET['operator']) && $_GET['operator'] == "+" ? 'selected' : '' ?>>+</option>
+                            <option <?= isset($_GET['operator']) && $_GET['operator'] == "-" ? 'selected' : '' ?>>-</option>
+                            <option <?= isset($_GET['operator']) && $_GET['operator'] == "*" ? 'selected' : '' ?>>*</option>
+                            <option <?= isset($_GET['operator']) && $_GET['operator'] == "/" ? 'selected' : '' ?>>/</option>
                             <option value="%">Процент</option>
                             <option value="**">Степень</option>
                         </select>
