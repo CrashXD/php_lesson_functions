@@ -1,27 +1,27 @@
 <?php
 
-$user = [
-    "name" => "John",
-    "age" => 53,
-    "position" => "admin",
-    "email" => "John@mail.ru",
-    "is_admin" => true,
-];
+// $user = [
+//     "name" => "John",
+//     "age" => 53,
+//     "position" => "admin",
+//     "email" => "John@mail.ru",
+//     "is_admin" => true,
+// ];
 
-$json = json_encode($user);
-echo $json;
+// $json = json_encode($user);
+// echo $json;
 
-$arr = json_decode($json, true);
+// $arr = json_decode($json, true);
 
-echo '<pre>';
-print_r($arr);
-echo '</pre>';
+// echo '<pre>';
+// print_r($arr);
+// echo '</pre>';
 
-$arr = json_decode($json);
+// $arr = json_decode($json);
 
-echo '<pre>';
-print_r($arr);
-echo '</pre>';
+// echo '<pre>';
+// print_r($arr);
+// echo '</pre>';
 
 if (isset($_POST['comment']) && isset($_POST['name'])) {
     $comment = [
