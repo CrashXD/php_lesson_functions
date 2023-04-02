@@ -1,46 +1,56 @@
 <?php
-//   if (file_exists('test2.txt')) {
-    // copy('test.txt', 'test/users.txt');
-    // rename('test.txt', 'test2.txt');
-    // rename('test', 'test2');
-    // unlink('test2.txt');
-//   }
-// echo __FILE__;
-// echo "<br>";
-// echo __DIR__;
-// echo '<pre>';
-    // $array = scandir(__DIR__);
-    // unset($array[0], $array[1]);
-    // print_r($array);
 
-// $content = file_get_contents('users.txt');
-// $lines = explode("\n", $content);
-// print_r($lines);
+$user = [
+    "name" => "John",
+    "age" => 53,
+    "position" => "admin",
+    "email" => "John@mail.ru",
+    "is_admin" => true,
+];
 
-// $content = file_get_contents('users2.txt');
-// $lines = explode("\n", $content);
-// print_r($lines);
-// $lines[] = "max";
+$json = json_encode($user);
+echo $json;
 
-// file_put_contents('users2.txt', implode("\n", $lines));
+$arr = json_decode($json, true);
 
+echo '<pre>';
+print_r($arr);
+echo '</pre>';
 
-// print_r($_POST);
+$arr = json_decode($json);
 
-// echo '</pre>';
+echo '<pre>';
+print_r($arr);
+echo '</pre>';
 
 if (isset($_POST['comment']) && isset($_POST['name'])) {
-    $comment = time() . '***' .$_POST['name'] . '***' . $_POST['comment'];
+    $comment = [
+        'time' => time(),
+        'name' => $_POST['name'],
+        'comment' => $_POST['comment'],
+    ];
 
-    if (file_get_contents('comments.txt')) {
-        $comment = '|||' . $comment;
+    if (!file_exists('comments_json.txt')) {
+        file_put_contents('comments_json.txt', json_encode([]));
     }
 
-    file_put_contents('comments.txt', $comment, FILE_APPEND);
+    $json_comments = file_get_contents('comments_json.txt');
+    $comments = json_decode($json_comments, true);
+
+    $comments[] = $comment;
+
+    $json_comments = json_encode($comments);
+
+    file_put_contents('comments_json.txt', $json_comments);
 }
 
-$text = file_get_contents('comments.txt');
-$comments = explode("|||", $text);
+if (file_exists('comments_json.txt')) {
+    $json_comments = file_get_contents('comments_json.txt');
+    $comments = json_decode($json_comments, true);
+} else {
+    $comments = [];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,11 +87,10 @@ $comments = explode("|||", $text);
             <div class="col-12">
                 <?php foreach($comments as $comment): ?>
                     <?php if($comment): ?>
-                        <?php $comment = explode('***', $comment) ?>
                         <div class="alert alert-success">
-                            <small><?= date("d.m.Y H:i:s", $comment[0]) ?></small><br>
-                            <b><?= $comment[1] ?></b><br>
-                            <?= $comment[2] ?>
+                            <small><?= date("d.m.Y H:i:s", $comment['time']) ?></small><br>
+                            <b><?= $comment['name'] ?></b><br>
+                            <?= $comment['comment'] ?>
                         </div>
                     <?php endif; ?> 
                 <?php endforeach; ?>

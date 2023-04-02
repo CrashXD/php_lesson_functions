@@ -8,6 +8,7 @@
 ?>
 <div class="row mb-3">
     <div class="col-12">
+        <p>Сейчас: <?= date("d.m.Y H:i:s", time()+3*60*60) ?> (<?= time() ?>)</p>
         <ul class="list-group">
             <?php foreach($menu as $item): ?>
                 <?php if(is_file($item) && str_ends_with($item, '.php') && !in_array($item, $except)): ?>
