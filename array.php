@@ -37,6 +37,7 @@ if (
 
 <body>
     <div class="container mt-3">
+        <?php include('header.php'); ?>
         <div class="row">
             <div class="col-12">
                 <form action="">
